@@ -9,9 +9,12 @@ def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="timelapse", description="Pi 延时摄影控制系统")
     commands = root.add_subparsers(dest="command", required=True)
     serve = commands.add_parser("serve", help="启动 Web 控制台")
-    serve.add_argument("--host", default="0.0.0.0")
-    serve.add_argument("--port", type=int, default=8080)
-    serve.add_argument("--state-dir", default="/var/lib/pi-timelapse")
+    serve.add_argument("--host", default=os.environ.get("TIMELAPSE_HOST", "0.0.0.0"))
+    serve.add_argument("--port", type=int, default=int(os.environ.get("TIMELAPSE_PORT", "8080")))
+    serve.add_argument(
+        "--state-dir",
+        default=os.environ.get("TIMELAPSE_STATE_DIR", "/var/lib/pi-timelapse"),
+    )
     commands.add_parser("check-camera", help="检查 Camera Module 3 与 Picamera2")
     return root
 

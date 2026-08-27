@@ -7,3 +7,5 @@ data/
 dist/
 build/
 .DS_Store
+.env
+docker-compose.override.yml

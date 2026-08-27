@@ -4,7 +4,9 @@
 
 界面名称：**时光延时**。控制台默认地址：`http://<树莓派IP或主机名>:8080/`。
 
-适合天空、植物、室内起居、街道人流等长期延时；不是监控录像，也不做公网直播。
+## 当前版本
+
+包版本 **0.1.0**。拍摄、预览、调参、相册、导出均在同一 Web 服务中完成。详细功能见 [项目说明文档.md](项目说明文档.md)。
 
 ---
 
@@ -34,7 +36,7 @@
 | 存储 | 系统用 SD 卡；**原图建议写 USB SSD**（长期项目需要大容量） |
 | 电源 | 官方电源 |
 
-不支持把 USB 网络摄像头当作正式方案。完整选型、挂盘、systemd 与排错见 **[部署配置指南.md](部署配置指南.md)**。
+不支持把 USB 网络摄像头当作正式方案。完整选型、挂盘、systemd / Docker 与排错见 **[部署配置指南.md](部署配置指南.md)**。
 
 ---
 
@@ -66,7 +68,10 @@ sudo mkdir -p /var/lib/pi-timelapse
 .venv/bin/timelapse serve --host 0.0.0.0 --port 8080 --state-dir /var/lib/pi-timelapse
 ```
 
-浏览器打开 `http://<树莓派IP>:8080/`。长期运行请安装仓库里的 `systemd/timelapse.service`（默认用户 `pi`，工作目录 `/opt/pi-timelapse`），步骤见部署指南第 6 节。
+浏览器打开 `http://<树莓派IP>:8080/`。长期运行二选一：
+
+- **原生 systemd**：`systemd/timelapse.service`（用户 `pi`，目录 `/opt/pi-timelapse`），见部署指南第 6 节。  
+- **Docker**：`docker compose up -d --build`，或 `timelapse-docker.service`，见部署指南第 6.1 节。不要与原生服务同时开。
 
 创建项目时填写树莓派上的**绝对路径**作为素材根目录（例如 `/mnt/ssd/timelapse`）。控制台**没有登录认证**，只应放在局域网；不要做公网端口映射。
 
@@ -78,11 +83,14 @@ sudo mkdir -p /var/lib/pi-timelapse
 config/presets/          15 套拍摄方案 YAML
 src/timelapse/           应用代码（相机、调度、存储、导出、Web）
 src/timelapse/web/       控制台页面与 API
-systemd/timelapse.service
+systemd/                 原生 timelapse.service 与可选 timelapse-docker.service
+Dockerfile               树莓派 arm64 镜像（含 Picamera2 系统包）
+docker-compose.yml       相机设备、/mnt /media、状态目录
+docker/entrypoint.sh
 tests/                   不依赖真机相机的测试
 项目说明文档.md
 部署配置指南.md
-docs/                    拍摄与技术设计原稿
+docs/                    拍摄设计（与成品对照）与当前技术实现
 ```
 
 命令行入口：`timelapse serve`、`timelapse check-camera`。
@@ -112,11 +120,13 @@ docs/                    拍摄与技术设计原稿
 
 ---
 
-## 更多文档
+## 文档
 
 | 文档 | 内容 |
 | --- | --- |
-| [项目说明文档.md](项目说明文档.md) | 功能、方案表、使用原则 |
-| [部署配置指南.md](部署配置指南.md) | 硬件、安装、挂盘、systemd、更新与排错 |
-| [docs/01-延时摄影设计方案.md](docs/01-延时摄影设计方案.md) | 题材与拍摄思路 |
-| [docs/02-技术实现方案.md](docs/02-技术实现方案.md) | 早期技术设计 |
+| [项目说明文档.md](项目说明文档.md) | 功能、15 套方案、使用注意 |
+| [部署配置指南.md](部署配置指南.md) | 硬件、安装、挂盘、systemd、Docker、更新与排错 |
+| [docs/01-延时摄影设计方案.md](docs/01-延时摄影设计方案.md) | 拍摄原则，并对照当前成品 |
+| [docs/02-技术实现方案.md](docs/02-技术实现方案.md) | 与代码一致的架构、配置、API、调度与导出 |
+
+包版本 `0.1.0`（`pyproject.toml`）。控制与拍摄以 Web 为主；CLI 为 `timelapse serve` 与 `timelapse check-camera`（Docker 入口也可直接 `check-camera`）。

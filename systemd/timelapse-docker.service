@@ -1,0 +1,20 @@
+[Unit]
+Description=时光延时 (Docker Compose)
+Documentation=file:///opt/pi-timelapse/部署配置指南.md
+Requires=docker.service
+After=docker.service network-online.target local-fs.target
+Wants=network-online.target
+Conflicts=timelapse.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/pi-timelapse
+TimeoutStartSec=0
+ExecStart=/usr/bin/docker compose -f /opt/pi-timelapse/docker-compose.yml up -d --build --remove-orphans
+ExecStop=/usr/bin/docker compose -f /opt/pi-timelapse/docker-compose.yml down
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,37 @@
+# 在树莓派 64-bit 上构建并运行。与本机 systemd（timelapse.service）互斥，不要同时占用 8080 和相机。
+#
+# 用法：
+#   sudo systemctl stop timelapse
+#   docker compose up -d --build
+#   docker compose exec timelapse timelapse check-camera
+#
+# 项目存储路径必须是容器内也能看到的绝对路径。默认把主机 /mnt 与 /media 按原路径挂进去，
+# 这样 Web 里填 /mnt/ssd/timelapse 或 /media/... 与宿主机一致。
+
+services:
+  timelapse:
+    image: pi-timelapse:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pi-timelapse
+    restart: unless-stopped
+    ports:
+      - "${TIMELAPSE_PORT:-8080}:8080"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      PYTHONUNBUFFERED: "1"
+      TIMELAPSE_APP_ROOT: /opt/pi-timelapse
+      TIMELAPSE_STATE_DIR: /var/lib/pi-timelapse
+      TIMELAPSE_HOST: 0.0.0.0
+      TIMELAPSE_PORT: "8080"
+    volumes:
+      - ${TIMELAPSE_STATE_HOST:-/var/lib/pi-timelapse}:/var/lib/pi-timelapse
+      - /mnt:/mnt
+      - /media:/media
+      - /run/udev:/run/udev:ro
+      - /dev:/dev
+    privileged: true
+    ipc: host
+    group_add:
+      - video

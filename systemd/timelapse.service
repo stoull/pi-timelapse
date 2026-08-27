@@ -2,6 +2,7 @@
 Description=Raspberry Pi Timelapse Web Controller
 After=network-online.target local-fs.target
 Wants=network-online.target
+Conflicts=timelapse-docker.service
 
 [Service]
 Type=simple
