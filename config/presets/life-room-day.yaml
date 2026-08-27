@@ -1,0 +1,30 @@
+name: 起居室一天
+summary: 室内日光变化，广角自动曝光，锁定白平衡避免一天内色温乱跳。
+mode: life
+capture:
+  interval_sec: 10
+  still_config: {main_size: [2304, 1296], jpeg_quality: 90}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "07:00", end: "23:00"}
+camera:
+  lens: wide
+  af_mode: auto_once
+  lens_position: 2
+  af_range: full
+  af_speed: normal
+  ae_enable: true
+  exposure_time_us: 33333
+  analogue_gain: 1.2
+  exposure_value: 0
+  awb_enable: false
+  awb_mode: indoor
+  colour_gains: [1.6, 1.5]
+  brightness: 0
+  contrast: 1
+  saturation: 1
+  sharpness: 1
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 20}

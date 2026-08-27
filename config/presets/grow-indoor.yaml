@@ -1,0 +1,30 @@
+name: 室内植物
+summary: 窗边或灯光下的盆栽，微距倾向对焦，自动曝光，锁定室内白平衡。
+mode: grow
+capture:
+  interval_sec: 900
+  still_config: {main_size: [3840, 2160], jpeg_quality: 95}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "06:00", end: "22:00"}
+camera:
+  lens: standard
+  af_mode: auto_once
+  lens_position: 4
+  af_range: macro
+  af_speed: normal
+  ae_enable: true
+  exposure_time_us: 10000
+  analogue_gain: 1.4
+  exposure_value: 0.25
+  awb_enable: false
+  awb_mode: indoor
+  colour_gains: [1.55, 1.65]
+  brightness: 0
+  contrast: 1.05
+  saturation: 1.1
+  sharpness: 1.2
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

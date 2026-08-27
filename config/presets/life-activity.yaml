@@ -1,0 +1,29 @@
+name: 室内活动
+summary: 厨房或聚会等短时事件，广角、较快间隔，自动曝光，锁定室内白平衡。
+mode: life
+capture:
+  interval_sec: 2
+  still_config: {main_size: [3840, 2160], jpeg_quality: 95}
+window:
+  type: event
+  timezone: Asia/Shanghai
+camera:
+  lens: wide
+  af_mode: auto_once
+  lens_position: 2
+  af_range: full
+  af_speed: fast
+  ae_enable: true
+  exposure_time_us: 16667
+  analogue_gain: 1.6
+  exposure_value: 0.125
+  awb_enable: false
+  awb_mode: indoor
+  colour_gains: [1.5, 1.7]
+  brightness: 0
+  contrast: 1
+  saturation: 1
+  sharpness: 1
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

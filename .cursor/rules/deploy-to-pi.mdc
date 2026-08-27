@@ -1,0 +1,33 @@
+---
+description: After code changes, sync and restart on the Raspberry Pi by default
+alwaysApply: true
+---
+
+# Deploy to Raspberry Pi by default
+
+After finishing implementation, tests, or UI/backend changes in this project, **sync to the Pi unless the user explicitly says not to** (e.g. 「先不同步」「先别部署」).
+
+Do not wait for a separate 「同步到 Pi」 message.
+
+## How to deploy
+
+1. Preserve the Pi virtualenv. Never rsync `--delete` in a way that removes `/opt/pi-timelapse/.venv`.
+2. Typical sequence:
+
+```bash
+rsync -az \
+  --exclude '.venv' \
+  --exclude '.pytest_cache' \
+  --exclude '__pycache__' \
+  --exclude '.dev-state' \
+  --exclude '*.egg-info' \
+  --exclude '.DS_Store' \
+  -e 'ssh -o BatchMode=yes' \
+  "/Users/hut/Documents/Raspberrypi延时摄影项目/" \
+  pi@hutpi.local:/tmp/pi-timelapse-src/ && \
+ssh -o BatchMode=yes pi@hutpi.local 'sudo rsync -a --delete --exclude ".venv" /tmp/pi-timelapse-src/ /opt/pi-timelapse/ && sudo systemctl restart timelapse && sleep 2 && systemctl is-active timelapse'
+```
+
+3. Host: `pi@hutpi.local`. App: `/opt/pi-timelapse`. Service: `timelapse`. URL: `http://hutpi.local:8080/`.
+4. If the service fails with missing `.venv/bin/timelapse`, recreate the venv **on the Pi** with `--system-site-packages` and `pip install -e .`, then restart.
+5. Tell the user to hard-refresh (`Cmd+Shift+R`) when frontend files changed.

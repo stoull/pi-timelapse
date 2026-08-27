@@ -1,0 +1,30 @@
+name: 城市夜景
+summary: 灯火与天际线，锁定约 1/20 秒快门与中等增益，偏钨丝灯白平衡。
+mode: life
+capture:
+  interval_sec: 8
+  still_config: {main_size: [3840, 2160], jpeg_quality: 92}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "18:30", end: "23:30"}
+camera:
+  lens: standard
+  af_mode: auto_once
+  lens_position: 0
+  af_range: full
+  af_speed: normal
+  ae_enable: false
+  exposure_time_us: 50000
+  analogue_gain: 2.5
+  exposure_value: 0
+  awb_enable: false
+  awb_mode: tungsten
+  colour_gains: [1.35, 1.85]
+  brightness: 0
+  contrast: 1.15
+  saturation: 1.05
+  sharpness: 1.1
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

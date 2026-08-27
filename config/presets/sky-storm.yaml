@@ -1,0 +1,32 @@
+name: 风暴云层
+summary: 快速积云与天气变化，短间隔拍摄，略压暗并提高对比度。
+mode: sky
+capture:
+  interval_sec: 3
+  still_config: {main_size: [3840, 2160], jpeg_quality: 95}
+window:
+  type: solar
+  latitude: 31.23
+  longitude: 121.47
+  timezone: Asia/Shanghai
+  solar: {start: sunrise, start_offset_min: 0, end: sunset, end_offset_min: 0}
+camera:
+  lens: standard
+  af_mode: auto_once
+  lens_position: 0
+  af_range: full
+  af_speed: fast
+  ae_enable: true
+  exposure_time_us: 2500
+  analogue_gain: 1
+  exposure_value: -0.5
+  awb_enable: false
+  awb_mode: cloudy
+  colour_gains: [1.5, 1.55]
+  brightness: -0.05
+  contrast: 1.25
+  saturation: 1
+  sharpness: 1.2
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

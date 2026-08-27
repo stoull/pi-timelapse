@@ -1,0 +1,30 @@
+name: 一周起居
+summary: 较长周期的室内记录，降低分辨率与间隔，锁定室内白平衡。
+mode: life
+capture:
+  interval_sec: 30
+  still_config: {main_size: [1920, 1080], jpeg_quality: 90}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "08:00", end: "22:00"}
+camera:
+  lens: wide
+  af_mode: auto_once
+  lens_position: 2
+  af_range: full
+  af_speed: normal
+  ae_enable: true
+  exposure_time_us: 33333
+  analogue_gain: 1.2
+  exposure_value: 0
+  awb_enable: false
+  awb_mode: indoor
+  colour_gains: [1.6, 1.5]
+  brightness: 0
+  contrast: 1
+  saturation: 1
+  sharpness: 1
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 21}

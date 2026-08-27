@@ -1,0 +1,32 @@
+name: 生长季
+summary: 户外植物跨日变化，白天窗口，自动曝光，锁定日光白平衡。
+mode: grow
+capture:
+  interval_sec: 2700
+  still_config: {main_size: [2304, 1296], jpeg_quality: 92}
+window:
+  type: solar
+  latitude: 31.23
+  longitude: 121.47
+  timezone: Asia/Shanghai
+  solar: {start: sunrise, start_offset_min: 0, end: sunset, end_offset_min: 0}
+camera:
+  lens: standard
+  af_mode: auto_once
+  lens_position: 4
+  af_range: full
+  af_speed: normal
+  ae_enable: true
+  exposure_time_us: 8000
+  analogue_gain: 1
+  exposure_value: 0
+  awb_enable: false
+  awb_mode: daylight
+  colour_gains: [1.6, 1.5]
+  brightness: 0
+  contrast: 1.05
+  saturation: 1.1
+  sharpness: 1.15
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

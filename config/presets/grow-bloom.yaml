@@ -1,0 +1,30 @@
+name: 花朵绽放
+summary: 近距拍开花过程，微距对焦范围，间隔约 10 分钟，锐度略提高。
+mode: grow
+capture:
+  interval_sec: 600
+  still_config: {main_size: [3840, 2160], jpeg_quality: 95}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "06:00", end: "20:00"}
+camera:
+  lens: standard
+  af_mode: auto_once
+  lens_position: 8
+  af_range: macro
+  af_speed: normal
+  ae_enable: true
+  exposure_time_us: 12000
+  analogue_gain: 1.2
+  exposure_value: 0.25
+  awb_enable: false
+  awb_mode: daylight
+  colour_gains: [1.6, 1.45]
+  brightness: 0.05
+  contrast: 1.1
+  saturation: 1.15
+  sharpness: 1.4
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}

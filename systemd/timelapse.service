@@ -1,0 +1,25 @@
+[Unit]
+Description=Raspberry Pi Timelapse Web Controller
+After=network-online.target local-fs.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+SupplementaryGroups=video
+WorkingDirectory=/opt/pi-timelapse
+Environment=PYTHONUNBUFFERED=1
+Environment=TIMELAPSE_APP_ROOT=/opt/pi-timelapse
+ExecStart=/opt/pi-timelapse/.venv/bin/timelapse serve --host 0.0.0.0 --port 8080 --state-dir /var/lib/pi-timelapse
+Restart=always
+RestartSec=5
+TimeoutStopSec=15
+KillSignal=SIGTERM
+FinalKillSignal=SIGKILL
+Nice=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

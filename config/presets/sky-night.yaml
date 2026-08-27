@@ -1,0 +1,30 @@
+name: 星空夜景
+summary: 夜间星空，手动对焦到无穷远，锁定 1 秒快门与较高增益，关闭自动曝光。
+mode: sky
+capture:
+  interval_sec: 25
+  still_config: {main_size: [2304, 1296], jpeg_quality: 92}
+window:
+  type: clock
+  timezone: Asia/Shanghai
+  clock: {start: "20:00", end: "05:00"}
+camera:
+  lens: standard
+  af_mode: manual
+  lens_position: 0
+  af_range: full
+  af_speed: normal
+  ae_enable: false
+  exposure_time_us: 1000000
+  analogue_gain: 6
+  exposure_value: 0
+  awb_enable: false
+  awb_mode: auto
+  colour_gains: [1.45, 1.85]
+  brightness: 0
+  contrast: 1.05
+  saturation: 0.95
+  sharpness: 0.8
+  hdr: false
+  camera_led: false
+encode: {fps: 24, height: 1080, crf: 18}
